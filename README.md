@@ -1,0 +1,2 @@
+# WpfGettingStartedTutorial
+The Getting Started sample provides an introduction to the development of a Windows Presentation Foundation (WPF) application that includes the elements that are common to most WPF applications: Extensible Application Markup Language (XAML) markup, code-behind, application definitions, controls, layout, data binding, and styles. https://msdn.microsoft.com/es-es/library/ms752299(v=vs.110).aspx
