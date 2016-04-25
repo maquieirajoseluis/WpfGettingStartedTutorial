@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 
 namespace WpfGettingStartedTutorial
@@ -9,11 +10,19 @@ namespace WpfGettingStartedTutorial
     /// </summary>
     public partial class App : Application
     {
+        private static bool createdNew;
         private bool isExit;
+        private static Mutex mutex = new Mutex(true, "E033614A-4651-4EAD-BE6C-155D337AD381", out createdNew);
         private System.Windows.Forms.NotifyIcon notifyIcon;
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (!mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                Current.Shutdown();
+                return;
+            }
+
             base.OnStartup(e);
             MainWindow = new MainWindow();
             MainWindow.Closing += MainWindow_Closing;
@@ -23,6 +32,15 @@ namespace WpfGettingStartedTutorial
             notifyIcon.Visible = true;
 
             CreateContextMenuStrip();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (createdNew)
+            {
+                mutex.ReleaseMutex();
+            }
+            base.OnExit(e);
         }
 
         private void CreateContextMenuStrip()
