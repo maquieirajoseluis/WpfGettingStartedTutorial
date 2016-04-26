@@ -1,12 +1,30 @@
-﻿<Window x:Class="WpfGettingStartedTutorial.MainWindow"
+﻿<Window x:Class="WpfGettingStartedTutorial.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfGettingStartedTutorial"
+        xmlns:Views="clr-namespace:WpfGettingStartedTutorial.Views"
+        xmlns:ViewModels="clr-namespace:WpfGettingStartedTutorial.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:SignInViewModel}">
+            <Views:SignInView />
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <ViewModels:MainViewModel />
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding SignInViewModel}" />
+        <Button Grid.Row="1">Help</Button>
+        <Button Grid.Row="2">Send Feedback</Button>
+        <Button Grid.Row="3">About</Button>
     </Grid>
 </Window>

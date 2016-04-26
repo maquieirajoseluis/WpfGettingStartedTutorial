@@ -6,6 +6,21 @@ namespace WpfGettingStartedTutorial.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private SignInViewModel signInViewModel;
+
+        public MainViewModel()
+        {
+            SignInViewModel = new SignInViewModel();
+        }
+
+        public SignInViewModel SignInViewModel {
+            get { return signInViewModel; }
+            private set {
+                signInViewModel = value;
+                RaisePropertyChanged("SignInViewModel");
+            }
+        }
+
         /// <summary>
         /// Raises the property changed event.
         /// </summary>

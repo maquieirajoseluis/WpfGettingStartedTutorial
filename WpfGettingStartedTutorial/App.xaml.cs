@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using WpfGettingStartedTutorial.Views;
 
 namespace WpfGettingStartedTutorial
 {
@@ -17,10 +18,16 @@ namespace WpfGettingStartedTutorial
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (!mutex.WaitOne(TimeSpan.Zero, true))
+            try
             {
-                Current.Shutdown();
-                return;
+                if (!mutex.WaitOne(TimeSpan.Zero, true))
+                {
+                    Current.Shutdown();
+                    return;
+                }
+            }
+            catch (AbandonedMutexException) {
+
             }
 
             base.OnStartup(e);
